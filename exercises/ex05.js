@@ -4,8 +4,27 @@
 
 const Queue = require('../lib/Queue');
 
+// 1 2 3 4 5 6 
+
 function mixQueue(queue) {
   // your code here
+  const tempQueue = new Queue()
+  const size = queue.size() // 6
+
+  for(let i = 0; i < size / 2; i++) {
+    tempQueue.enqueue(queue.dequeue())
+  }
+
+  for (let i = 0; i < size / 2; i++) {
+    const frontEl = tempQueue.dequeue(); // 123 - 1
+    const backEl = queue.dequeue(); // 456 - 4
+    
+    queue.enqueue(frontEl);
+    queue.enqueue(backEl);
+  }
+
+  return queue
+
 }
 
 const queue = new Queue();
@@ -17,4 +36,4 @@ queue.enqueue(5);
 queue.enqueue(6);
 
 mixQueue(queue);
-console.log(queue.printQueue()); // Output: 1 4 2 5 4 6
+console.log(queue.printQueue()); // Output: 1 4 2 5 3 6
